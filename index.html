@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Matcha Mood Meter</title>
+
+  <style>
+    :root {
+      --green: #3e8e5a;
+      --dark: #1f5738;
+      --cream: #fffdf5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(180deg, #eef9f0, #d7efe0);
+      color: #173b2a;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      width: min(680px, 100%);
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: 0 18px 50px rgba(31, 87, 56, 0.15);
+      border: 1px solid rgba(62, 142, 90, 0.15);
+    }
+
+    .badge {
+      display: inline-block;
+      background: #e7f6ec;
+      color: var(--dark);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+      color: var(--dark);
+    }
+
+    .sub {
+      margin: 0 0 22px;
+      color: #42695a;
+      line-height: 1.5;
+    }
+
+    .emoji-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    @media (max-width: 560px) {
+      .emoji-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .emoji-option {
+      position: relative;
+      display: block;
+    }
+
+    .emoji-option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .emoji-card {
+      background: #f7fff9;
+      border: 2px solid #cde7d6;
+      border-radius: 20px;
+      padding: 16px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.15s;
+      min-height: 118px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .emoji {
+      font-size: 2.1rem;
+      line-height: 1;
+    }
+
+    .emoji-text {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #275d3d;
+    }
+
+    .emoji-sub {
+      font-size: 0.78rem;
+      color: #5f8472;
+      font-weight: 600;
+    }
+
+    .emoji-option input:checked + .emoji-card {
+      border-color: var(--green);
+      background: #eaf9ef;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(62, 142, 90, 0.15);
+    }
+
+    .field-label {
+      display: block;
+      font-weight: 800;
+      margin: 16px 0 8px;
+      color: #204d37;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 2px solid #cfe6d8;
+      border-radius: 16px;
+      padding: 13px 14px;
+      font: inherit;
+      background: #fff;
+      color: #173b2a;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--green);
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    @media (max-width: 560px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      border: 0;
+      background: linear-gradient(135deg, var(--green), var(--dark));
+      color: #fff;
+      font: inherit;
+      font-weight: 900;
+      padding: 15px 18px;
+      border-radius: 18px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.95;
+    }
+
+    .note {
+      margin-top: 14px;
+      font-size: 0.86rem;
+      color: #5f8472;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="card">
+    <div class="badge">🍵 Matcha Mood Meter</div>
+
+    <h1>Scan, pilih emoji, jujur aja!</h1>
+    <p class="sub">
+      Bantu kami tahu rasa Matcha Pudding & Matcha Drink versi kamu.
+      Satu klik kecilmu berarti banget.
+    </p>
+
+    <!-- Nanti action="#" diganti ke Formspree / backend -->
+    <form action="https://formspree.io/f/xzezqnjn" method="POST">
+      <label class="field-label">Ekspresi kamu setelah cobain</label>
+
+      <div class="emoji-grid">
+        <label class="emoji-option">
+          <input type="radio" name="emosi" value="bahagia_banget" required />
+          <div class="emoji-card">
+            <span class="emoji">😆</span>
+            <span class="emoji-text">Bahagia banget</span>
+            <span class="emoji-sub">Enak Banget!</span>
+          </div>
+        </label>
+
+        <label class="emoji-option">
+          <input type="radio" name="emosi" value="bahagia" />
+          <div class="emoji-card">
+            <span class="emoji">😊</span>
+            <span class="emoji-text">Bahagia aja</span>
+            <span class="emoji-sub">Enak!</span>
+          </div>
+        </label>
+
+        <label class="emoji-option">
+          <input type="radio" name="emosi" value="biasa_aja" />
+          <div class="emoji-card">
+            <span class="emoji">😕</span>
+            <span class="emoji-text">Agak ga bahagia</span>
+            <span class="emoji-sub">Kurang..</span>
+          </div>
+        </label>
+
+        <label class="emoji-option">
+          <input type="radio" name="emosi" value="ga_bahagia" />
+          <div class="emoji-card">
+            <span class="emoji">😞</span>
+            <span class="emoji-text">Ga bahagia</span>
+            <span class="emoji-sub">Ga Cocok..</span>
+          </div>
+        </label>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <label class="field-label" for="nama">Nama </label>
+          <input id="nama" name="nama" placeholder="contoh: Dinda" required />
+        </div>
+
+        <div>
+          <label class="field-label" for="produk">Produk</label>
+          <select id="produk" name="produk">
+            <option>Matcha Pudding</option>
+            <option>Matcha Drink</option>
+          </select>
+        </div>
+      </div>
+
+      <label class="field-label" for="catatan">Catatan rasa</label>
+      <select id="catatan" name="catatan_rasa">
+        <option>Pas</option>
+        <option>Terlalu manis</option>
+        <option>Kurang manis</option>
+        <option>Terlalu pahit</option>
+        <option>Terlalu encer</option>
+        <option>Terlalu kental</option>
+        <option>Terlalu enak</option>
+        <option>Harganya kemahalan</option>
+        <option>Porsi kurang</option>
+        <option>Lainnya</option>
+      </select>
+
+      <label class="field-label" for="ulasan">Ulasan</label>
+      <textarea id="ulasan" name="ulasan" placeholder="Rasanya gimana? Teksturnya? Aromanya?"></textarea>
+
+      <label class="field-label" for="saran">Saran / note</label>
+      <textarea id="saran" name="saran" placeholder="Contoh: bikin varian less sweet dong"></textarea>
+
+      <label class="field-label" for="kode">Kode pembelian / nomor pesanan, opsional</label>
+      <input id="kode" name="kode_pembelian" placeholder="contoh: MP-001" />
+
+      <input type="hidden" name="sumber" value="qr_botol" />
+
+      <button type="submit">Kirim mood matcha-ku 🍵</button>
+    </form>
+
+    <p class="note">
+      Sekarang form masih demo. Nanti bagian <b>action="#"</b> akan diganti
+      ke Formspree / Google Sheet / Python backend biar datanya masuk.
+    </p>
+  </main>
+</body>
+</html>
